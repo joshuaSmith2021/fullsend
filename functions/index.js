@@ -1,9 +1,9 @@
 const functions = require('firebase-functions');
 const admin     = require('firebase-admin');
 
-const serviceAccount = require("../serviceAccountKey.json");
+//const serviceAccount = require("./../serviceAccountKey.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.applicationDefault(),
   databaseURL: "https://lynx-v2.firebaseio.com"
 });
 
@@ -25,7 +25,15 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
     sendits: sendDoc.path,
     created: new Date()
   }).then(res => {
-    console.log(`Document written at ${res.updateTime}`);
+    console.log(`User document created for ${uid}`);
+  }).catch(err => {
+    console.error(err);
+  });
+
+  sendDoc.set({
+    sendits: []
+  }).then(res => {
+    console.log(`Sendit doc created for user ${uid}`)
   }).catch(err => {
     console.error(err);
   });
