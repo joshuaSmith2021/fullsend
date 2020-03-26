@@ -1,15 +1,13 @@
 const functions = require('firebase-functions');
 const admin     = require('firebase-admin');
 
-const firestore = admin.firestore();
-
 const serviceAccount = require("serviceAccountKey.json");
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://lynx-v2.firebaseio.com"
 });
 
+const firestore = admin.firestore();
 
 exports.createUserData = functions.auth.user().onCreate((user) => {
 // [END onCreateTrigger]
