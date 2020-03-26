@@ -1,4 +1,12 @@
 const functions = require('firebase-functions');
+const admin     = require('firebase-admin');
+
+const serviceAccount = require("serviceAccountKey.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://lynx-v2.firebaseio.com"
+});
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
