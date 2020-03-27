@@ -5,6 +5,8 @@ service cloud.firestore {
       // Only allow the user to create sendits
       allow create: if request.auth != null 
                     && request.auth.uid == uid;
+      // Allow anyone to access information about each sendit
+      allow read: if true;
     }
 
     match /responses/{uid=*} {
