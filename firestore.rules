@@ -4,7 +4,7 @@ service cloud.firestore {
     match /sendits/{uid=*} {
       // Only allow the user to create sendits
       allow create: if request.auth != null 
-      							&& request.auth.uid == uid;
+                    && request.auth.uid == uid;
     }
 
     match /responses/{uid=*} {
@@ -12,13 +12,13 @@ service cloud.firestore {
     	allow write: if true;
       // But only let the user read responses
       allow read: if request.auth != null 
-      						&& request.auth.uid == uid;
+                  && request.auth.uid == uid;
     }
 
-		match /users/{uid=*} {
+    match /users/{uid=*} {
       // Only let the user read information
     	allow read: if request.auth != null 
-      						&& request.auth.uid == uid;
+                    && request.auth.uid == uid;
     }
   }
 }
