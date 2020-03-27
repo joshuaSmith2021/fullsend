@@ -8,12 +8,30 @@
   <link href="sendpage.css" rel="stylesheet" />
 </head>
 <body>
-  <h2 class="w3-center">Send a message to USERNAME</h2>
+  <h2 class="w3-center">Send a message to <span id="username">USERNAME</span></h2>
 
   <div class="send">
     <input type="text" placeholder="Send it!" id="typebox">
     <div class="sendbutton"><i class="material-icons" id="sendTrigger">send</i></div>
   </div>
+
+  <script src="/__/firebase/7.12.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.12.0/firebase-firestore.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9OKKgY2ufD0LBf8ms5Pdzl_2l_7Pj0sg",
+      authDomain: "lynx-v2.firebaseapp.com",
+      databaseURL: "https://lynx-v2.firebaseio.com",
+      projectId: "lynx-v2",
+      storageBucket: "lynx-v2.appspot.com",
+      messagingSenderId: "1014596557986",
+      appId: "1:1014596557986:web:7cc8006b13d239f34e4bfb"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  
   <script src="send-message.js"></script>
 </body>
 </html>
