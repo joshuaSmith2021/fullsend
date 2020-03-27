@@ -34,9 +34,8 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
   });
 });
 
-exports.createUserData = functions.auth.user().onDelete((user) => {
+exports.eraseUserData = functions.auth.user().onDelete((user) => {
   const uid = user.uid;
-  const phone = user.phoneNumber;
 
   let userDoc = firestore.doc(`users/${uid}`);
   let sendDoc = firestore.doc(`sendits/${uid}`)
