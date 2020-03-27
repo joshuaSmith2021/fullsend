@@ -34,3 +34,22 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
   });
 });
 
+exports.createUserData = functions.auth.user().onDelete((user) => {
+  const uid = user.uid;
+  const phone = user.phoneNumber;
+
+  let userDoc = firestore.doc(`users/${uid}`);
+  let sendDoc = firestore.doc(`sendits/${uid}`)
+  
+  userDoc.set().then(() => {
+    console.log(`User document deleted for ${uid}`);
+  }).catch(err => {
+    console.error(err);
+  });
+
+  sendDoc.delete().then(() => {
+    console.log(`Sendit doc deleted for user ${uid}`)
+  }).catch(err => {
+    console.error(err);
+  });
+});
