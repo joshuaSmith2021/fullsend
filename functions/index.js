@@ -17,8 +17,8 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
   
   userDoc.set({
     phone  : phone,
-    sendits: sendDoc.path,
-    created: new Date()
+    sendits: firestore.DocumentReference(sendDoc.path),
+    created: firestore.Timestamp(new Date().getTime() / 1000)
   }).then(res => {
     console.log(`User document created for ${uid}`);
   }).catch(err => {
