@@ -18,7 +18,7 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
   userDoc.set({
     phone  : phone,
     sendits: sendDoc.path,
-    created: firestore.Timestamp(new Date().getTime() / 1000)
+    created: new Date()
   }).then(res => {
     console.log(`User document created for ${uid}`);
   }).catch(err => {
@@ -29,7 +29,6 @@ exports.createUserData = functions.auth.user().onCreate((user) => {
     sendits: []
   }).then(res => {
     console.log(`Sendit doc created for user ${uid}`);
-    return "Success";
   }).catch(err => {
     console.error(err);
   });
@@ -49,7 +48,6 @@ exports.eraseUserData = functions.auth.user().onDelete((user) => {
 
   sendDoc.delete().then(() => {
     console.log(`Sendit doc deleted for user ${uid}`);
-    return "Success";
   }).catch(err => {
     console.error(err);
   });
