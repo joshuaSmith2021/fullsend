@@ -1,5 +1,7 @@
 function getParameters(){var t=window.location.href.split("?");if(1===t.length)return null;var r,e=t[1].split("&"),n="{",l="";for(r=0;r<e.length;r++)l=e[r].split("="),r>0&&(n+=","),isNaN(parseInt(l[1],10))?"true"===l[1]||"false"===l[1]?n+='"'+l[0]+'":'+l[1]:n+='"'+l[0]+'":"'+l[1]+'"':n+='"'+l[0]+'":'+l[1];return n+="}"}
 
+const parameters = JSON.parse(getParameters());
+
 // Need to: get creator's username from database
 
 const inputBox = document.getElementById("typebox");
