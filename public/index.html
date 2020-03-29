@@ -9,9 +9,6 @@
     <script defer src="/__/firebase/7.12.0/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
     <script defer src="/__/firebase/7.12.0/firebase-auth.js"></script>
-    <script defer src="/__/firebase/7.12.0/firebase-database.js"></script>
-    <script defer src="/__/firebase/7.12.0/firebase-messaging.js"></script>
-    <script defer src="/__/firebase/7.12.0/firebase-storage.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
     <script defer src="/__/firebase/init.js"></script>
 
@@ -33,11 +30,11 @@
   <body>
     <div id="message">
       <h2>Welcome</h2>
-      <h1>Firebase Hosting Setup Complete</h1>
-      <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something extraordinary!</p>
-      <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+      <h1>Fullsend: Make anonymous polls with NO app download!</h1>
+      <p>You're seeing this because you've heard about the NEW, SIMPLE, and EASY way to make fun anonymous polls for you and your friends!</p>
+      <a target="_blank" href="login/" id="actionButton">Sign in with your phone!</a>
     </div>
-    <p id="load">Firebase SDK Loading&hellip;</p>
+	<!--<p id="load">Firebase SDK Loading&hellip;</p>-->
 
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -61,5 +58,26 @@
         }
       });
     </script>
+	<script>
+const actionButton = document.getElementById('actionButton');
+
+actionButton.addEventListener('click', function () {
+	if (firebase.auth().currentUser) {
+		// User already signed in, send them to the poll creater
+		location.replace('create/');
+	} else {
+		// User needs to sign in
+		window.open('login/');
+	}
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+	if (user) {
+		actionButton.innerHTML = "Create a poll!";
+	} else {
+		actionButton.innerHTML = "Sign in with your phone!";
+	}
+});
+	</script>
   </body>
 </html>
