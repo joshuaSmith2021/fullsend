@@ -3,24 +3,22 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /sendits/{uid=*} {
       // Only allow the user to create sendits
-      allow create: if request.auth != null 
-                    && request.auth.uid == uid;
+      allow create: if request.auth != null;
       // Allow anyone to access information about each sendit
       allow read: if true;
     }
 
-    match /responses/{uid=*} {
+    match /responses/{senditId=*} {
       // Allow anyone to write a new response
-    	allow write: if true;
+    	allow read: if true;
       // But only let the user read responses
-      allow read: if request.auth != null 
-                  && request.auth.uid == uid;
+      allow create: if request.auth != null;
     }
 
     match /users/{uid=*} {
       // Only let the user read information
     	allow read: if request.auth != null 
-                    && request.auth.uid == uid;
+                  && request.auth.uid == uid;
     }
   }
 }
