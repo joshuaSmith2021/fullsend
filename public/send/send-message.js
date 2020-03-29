@@ -1,6 +1,11 @@
 function getParameters(){var t=window.location.href.split("?");if(1===t.length)return null;var r,e=t[1].split("&"),n="{",l="";for(r=0;r<e.length;r++)l=e[r].split("="),r>0&&(n+=","),isNaN(parseInt(l[1],10))?"true"===l[1]||"false"===l[1]?n+='"'+l[0]+'":'+l[1]:n+='"'+l[0]+'":"'+l[1]+'"':n+='"'+l[0]+'":'+l[1];return n+="}"}
 
+// should have 1 parameter: id, which is the 16 hexadecimal
+// string representing the responses document reference
 const parameters = JSON.parse(getParameters());
+const responseDoc = parameters.id;
+
+const firestore = firebase.firestore();
 
 // Need to: get creator's username from database
 
@@ -24,5 +29,15 @@ inputBox.addEventListener("blur", function () {
 document.getElementById("sendTrigger").addEventListener("click", function () {
   if (inputBox.value.replace(/\s/g, "") !== "") {
     // Send message to firebase
+	let message = inputBox.value;
+
+	// Get current responses and add to them
+	firestore.collection('responses').doc(responseDoc).get(doc => {
+		let data = doc.data();
+		console.log(data);
+	}).catch(err => {
+		console.error(err);
+		alert('Uh oh, looks like something went wrong in the code! Sorry about that! With any questions, contact the developer at https://github.com/joshuasmith2021/fullsend');
+	});
   }
 });
