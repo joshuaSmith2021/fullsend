@@ -1,4 +1,4 @@
-function getParameters(){var t=window.location.href.split("?");if(1===t.length)return null;var r,e=t[1].split("&"),n="{",l="";for(r=0;r<e.length;r++)l=e[r].split("="),r>0&&(n+=","),isNaN(parseInt(l[1],10))?"true"===l[1]||"false"===l[1]?n+='"'+l[0]+'":'+l[1]:n+='"'+l[0]+'":"'+l[1]+'"':n+='"'+l[0]+'":'+l[1];return n+="}"}
+function getParameters(){var t=window.location.href.split("?");if(1===t.length)return null;var r,e=t[1].split("&"),l="{",n="";for(r=0;r<e.length;r++)n=e[r].split("="),0<r&&(l+=","),isNaN(n[1])?"true"===n[1]||"false"===n[1]?l+='"'+n[0]+'":'+n[1]:l+='"'+n[0]+'":"'+n[1]+'"':l+='"'+n[0]+'":'+n[1];return l+="}"}
 
 // should have 1 parameter: id, which is the 16 hexadecimal
 // string representing the responses document reference
