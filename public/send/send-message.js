@@ -32,7 +32,7 @@ document.getElementById("sendTrigger").addEventListener("click", function () {
 	let message = inputBox.value;
 
 	// Get current responses and add to them
-	firestore.collection('responses').doc(responseDoc).get(doc => {
+	firestore.collection('responses').doc(responseDoc).get().then(doc => {
 		let data = doc.data();
 		console.log(data);
 	}).catch(err => {
