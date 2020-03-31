@@ -102,18 +102,18 @@ function init() {
 
 					const copyButtons = document.getElementsByClassName('copyLinkButton');
 
-for (let i = 0; i < copyButtons.length; i++) {
-        let button = copyButtons[i];
-        button.addEventListener('click', event => {
-                let documentId = event.target.getAttribute('data-docId');
-                let link = `${location.origin}/send/?${documentId}`;
+					for (let i = 0; i < copyButtons.length; i++) {
+						let button = copyButtons[i];
+						button.addEventListener('click', event => {
+							let documentId = event.target.getAttribute('data-docId');
+							let link = `${location.origin}/send/?${documentId}`;
 
-                copyToClipboard(link);
-                document.querySelector('#demo-toast-example').MaterialSnackbar.showSnackbar({
-                        message: "Link copied to clipboard!"
-                });
-        });
-}
+							copyToClipboard(link);
+							document.querySelector('#demo-toast-example').MaterialSnackbar.showSnackbar({
+								message: "Link copied to clipboard!"
+							});
+						});
+					}
 
 				} else {
 					console.log(`Waiting for ${desiredLength} items, currently have ${userPolls.length}`);
