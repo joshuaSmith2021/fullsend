@@ -45,12 +45,14 @@ function buildListItem(question, creation, docId, i) {
 }
 
 function init() {
+	console.log('Init function called');
 	// Get data from firestore
 	const user = firebase.auth().currentUser;
 	const uid  = user.uid;
 	const firestore = firebase.firestore();
 
 	firestore.collection('users').doc(uid).get().then(doc => {
+		console.log('User doc received');
 		let data = doc.data();
 		let pollIds = data.sendits;
 
@@ -69,10 +71,10 @@ function init() {
 				firestore.collection('sendits').doc(currentId).get().then(document => {
 					let pollData = document.data();
 
-					userPolls.append({
+					userPolls.push({
 						question : pollData.question,
-						timestamp: polldata.created,
-						username : polldata.creator
+						timestamp: pollData.created,
+						username : pollData.creator
 					});
 				}).catch(err => {
 					console.error(err);
@@ -99,7 +101,10 @@ function renderList() {
 
 firebase.auth().onAuthStateChanged(function(u) {
 	if (u) {
+		console.log('Calling init function');
 		init();
+	} else {
+		console.error('No current user found');
 	}
 });
 
