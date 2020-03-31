@@ -84,7 +84,7 @@ function init() {
 					clearInterval(checkForCompletion);
 					console.log(userPolls);
 				}
-			}
+			});
 		}
 
 		userPolls = pollIds;
@@ -96,6 +96,12 @@ function init() {
 function renderList() {
 	// add list items for each poll to document
 }
+
+firebase.auth().onAuthStateChanged(function(u) {
+	if (u) {
+		init();
+	}
+});
 
 pollList.innerHTML += buildListItem("Ask me something", new Date(), "0123456789abcdef", 0);
 
