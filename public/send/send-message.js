@@ -22,7 +22,7 @@ inputBox.addEventListener("blur", function () {
   let value = inputBox.value;
   if (value.replace(/\s/g, "") == "") {
     inputBox.style.textAlign = "center";
-    inputBox.placeholder = 'Sent it!';
+    inputBox.placeholder = 'Send it!';
     inputBox.value = "";
   }
 });
