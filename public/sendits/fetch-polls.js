@@ -31,7 +31,7 @@ function buildListItem(question, creation, docId, i) {
 
 		timeString += (hour > 11) ? 'pm' : 'am';
 		
-		let calendar = `${months[date.getMonth()]} ${date.getDay() + 1}`;
+		let calendar = `${months[date.getMonth()]} ${date.getDate()}`;
 		
 		return {
 			timeString : timeString,
@@ -79,7 +79,8 @@ function init() {
 					userPolls.push({
 						question : pollData.question,
 						timestamp: pollData.created,
-						username : pollData.creator
+						username : pollData.creator,
+						id       : currentId
 					});
 				}).catch(err => {
 					console.error(err);
@@ -95,8 +96,10 @@ function init() {
 							return a.timestamp.seconds > b.timestamp.seconds;
 						})[j];
 
-						let d = new Date();
+						let d = new Date(0);
 						d.setUTCSeconds(currentPoll.timestamp.seconds);
+						console.log(d);
+						console.log(currentPoll.timestamp.seconds);
 						pollList.innerHTML += buildListItem(currentPoll.question, d, currentPoll.id, j);
 					}
 
@@ -106,7 +109,7 @@ function init() {
 						let button = copyButtons[i];
 						button.addEventListener('click', event => {
 							let documentId = event.target.getAttribute('data-docId');
-							let link = `${location.origin}/send/?${documentId}`;
+							let link = `${location.origin}/send/?id=${documentId}`;
 
 							copyToClipboard(link);
 							document.querySelector('#demo-toast-example').MaterialSnackbar.showSnackbar({
@@ -115,6 +118,8 @@ function init() {
 						});
 					}
 
+					document.getElementById('inbox').hidden = false;
+					document.getElementById('loadingScreen').hidden = true;
 				} else {
 					console.log(`Waiting for ${desiredLength} items, currently have ${userPolls.length}`);
 				}
@@ -123,10 +128,6 @@ function init() {
 	}).catch(err => {
 		console.error(err);
 	});
-}
-
-function renderList() {
-	// add list items for each poll to document
 }
 
 firebase.auth().onAuthStateChanged(function(u) {
