@@ -10,9 +10,9 @@ service cloud.firestore {
 
     match /responses/{senditId=*} {
       // Allow anyone to write a new response
-    	allow read: if true;
+    	allow read, write: if true;
       // But only let the user read responses
-      allow create: if request.auth != null;
+	allow create: if request.auth != null;
     }
 
     match /users/{uid=*} {
