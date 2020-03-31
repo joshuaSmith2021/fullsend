@@ -73,7 +73,7 @@ actionButton.addEventListener('click', function () {
 
 firebase.auth().onAuthStateChanged(function(user) {
 	if (user) {
-		actionButton.innerHTML = "Create a poll!";
+		actionButton.innerHTML = "View your Sendits!";
 	} else {
 		actionButton.innerHTML = "Sign in with your phone!";
 	}
