@@ -10,6 +10,7 @@ const firestore = firebase.firestore();
 // Need to: get creator's username from database
 
 const inputBox = document.getElementById("typebox");
+let question = 'Send it!';
 
 inputBox.addEventListener("focus", function () {
   // Fires constantly when the box is in focus
@@ -21,7 +22,7 @@ inputBox.addEventListener("blur", function () {
   let value = inputBox.value;
   if (value.replace(/\s/g, "") == "") {
     inputBox.style.textAlign = "center";
-    inputBox.placeholder = "Send it!";
+    inputBox.placeholder = 'Sent it!';
     inputBox.value = "";
   }
 });
@@ -35,9 +36,30 @@ document.getElementById("sendTrigger").addEventListener("click", function () {
 	firestore.collection('responses').doc(responseDoc).get().then(doc => {
 		let data = doc.data();
 		console.log(data);
+		data.responses.push({
+			sent: new Date(),
+			text: message
+		});
+
+		firestore.collection('responses').doc(responseDoc).set(data).then(() => {
+			location.replace('../sent/');
+		}).catch(err => {
+			console.error(err);
+		});
 	}).catch(err => {
 		console.error(err);
 		alert('Uh oh, looks like something went wrong in the code! Sorry about that! With any questions, contact the developer at https://github.com/joshuasmith2021/fullsend');
 	});
   }
+});
+
+firestore.collection('sendits').doc(responseDoc).get().then(doc => {
+	let data = doc.data();
+
+	username = data.creator;
+	question = data.question;
+
+	document.getElementById('username').innerHTML = username;
+}).catch(err => {
+	console.error(err);
 });
