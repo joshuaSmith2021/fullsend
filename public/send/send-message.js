@@ -60,6 +60,7 @@ firestore.collection('sendits').doc(responseDoc).get().then(doc => {
 	question = data.question;
 
 	document.getElementById('username').innerHTML = username;
+	document.getElementById('questionHeader').innerHTML = question;
 }).catch(err => {
 	console.error(err);
 });
