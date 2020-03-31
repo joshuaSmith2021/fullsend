@@ -64,7 +64,7 @@ const actionButton = document.getElementById('actionButton');
 actionButton.addEventListener('click', function () {
 	if (firebase.auth().currentUser) {
 		// User already signed in, send them to the poll creater
-		location.replace('create/');
+		location.replace('sendits/');
 	} else {
 		// User needs to sign in
 		window.open('login/');
