@@ -55,6 +55,8 @@ function init() {
 		console.log('User doc received');
 		let data = doc.data();
 		let pollIds = data.sendits;
+		console.log('Response doc from users collection:');
+		console.log(data);
 
 		if (typeof pollIds !== "object") {
 			pollIds = null;
@@ -62,12 +64,15 @@ function init() {
 			pollIds = null;
 		}
 
-		if (pollIds == null) {
+		if (pollIds === null) {
 			// Create a no polls message or something, idk
+			console.log('pollIds found to be null');
 		} else {
+			console.log('pollIds valid');
 			desiredLength = pollIds.length;
 			for (let i = 0; i < pollIds.length; i++) {
 				let currentId = pollIds[i];
+				console.log(`Sending request for sendit with id ${currentId}`);
 				firestore.collection('sendits').doc(currentId).get().then(document => {
 					let pollData = document.data();
 
@@ -85,11 +90,36 @@ function init() {
 				if (userPolls.length === desiredLength) {
 					clearInterval(checkForCompletion);
 					console.log(userPolls);
-				}
-			});
-		}
+					for (let j = 0; j < userPolls.length; j++) {
+						let currentPoll = userPolls.sort(function(a, b) {
+							return a.timestamp.seconds > b.timestamp.seconds;
+						})[j];
 
-		userPolls = pollIds;
+						let d = new Date();
+						d.setUTCSeconds(currentPoll.timestamp.seconds);
+						pollList.innerHTML += buildListItem(currentPoll.question, d, currentPoll.id, j);
+					}
+
+					const copyButtons = document.getElementsByClassName('copyLinkButton');
+
+for (let i = 0; i < copyButtons.length; i++) {
+        let button = copyButtons[i];
+        button.addEventListener('click', event => {
+                let documentId = event.target.getAttribute('data-docId');
+                let link = `${location.origin}/send/?${documentId}`;
+
+                copyToClipboard(link);
+                document.querySelector('#demo-toast-example').MaterialSnackbar.showSnackbar({
+                        message: "Link copied to clipboard!"
+                });
+        });
+}
+
+				} else {
+					console.log(`Waiting for ${desiredLength} items, currently have ${userPolls.length}`);
+				}
+			}, 100);
+		}
 	}).catch(err => {
 		console.error(err);
 	});
@@ -108,22 +138,4 @@ firebase.auth().onAuthStateChanged(function(u) {
 	}
 });
 
-pollList.innerHTML += buildListItem("Ask me something", new Date(), "0123456789abcdef", 0);
-
-// First, add list rows to DOM
-
-
-const copyButtons = document.getElementsByClassName('copyLinkButton');
-
-for (let i = 0; i < copyButtons.length; i++) {
-	let button = copyButtons[i];
-	button.addEventListener('click', event => {
-		let documentId = event.target.getAttribute('data-docId');
-		let link = `${location.origin}/send/?${documentId}`;
-		
-		copyToClipboard(link);
-		document.querySelector('#demo-toast-example').MaterialSnackbar.showSnackbar({
-			message: "Link copied to clipboard!"
-		});
-	});
-}
+// pollList.innerHTML += buildListItem("Ask me something", new Date(), "0123456789abcdef", 0);
