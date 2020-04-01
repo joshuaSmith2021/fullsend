@@ -136,6 +136,7 @@ firebase.auth().onAuthStateChanged(function(u) {
 		init();
 	} else {
 		console.error('No current user found');
+		location.replace('/');
 	}
 });
 
