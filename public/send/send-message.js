@@ -42,7 +42,8 @@ document.getElementById("sendTrigger").addEventListener("click", function () {
 		});
 
 		firestore.collection('responses').doc(responseDoc).set(data).then(() => {
-			location.replace('../sent/');
+			alert('Message received!');	
+			location.replace('../');
 		}).catch(err => {
 			console.error(err);
 		});
