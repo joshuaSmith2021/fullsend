@@ -15,18 +15,23 @@
 </head>
 
 <body>
-	<div id="loadingScreen" hidden>
+	<div id="loadingScreen">
 		<div class="loading">
 			<h4 class="w3-center">Loading, please wait...</h4>
 			<div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
 		</div>
 	</div>
-	
-	<div id="inbox">
-		<h2 class="w3-center w3-padding">Your Sendits</h2>
-		<ul class="demo-list-three mdl-list" style="width: 90%; margin: auto;" id="displayPolls">
-		<li class="mdl-list__item mdl-list__item--three-line"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-avatar" style="background: none; color:#757575;">poll</i><span><a href="/responses/?id=${docId}">Ask me something!</a></span><span class="mdl-list__item-text-body">Created on ${fancyDate.calendarDay} at ${fancyDate.timeString}</span></span><span class="mdl-list__item-secondary-content"><a class="mdl-list__item-secondary-action" id="tt${i}"><i class="material-icons copyLinkButton" data-docId="${docId}">link</i></a><div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="tt${i}">Copy Share Link</div></span></li>
-		</ul>
+	<div>&nbsp;</div>
+	<div id="inbox" class="w3-padding-large" hidden>
+		<div class="mdl-layout__header-row">
+			<span class="mdl-layout-title"><h3>Your Sendits</h3></span>
+			<div class="mdl-layout-spacer"></div>
+			<nav class="mdl-navigation">
+				<a class="mdl-navigation__link" href="/create/" style="color:#757575;" id="createLink"><i class="material-icons">add</i></a>
+				<div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="createLink">Follow</div>
+			</nav>
+    	</div>
+		<ul class="demo-list-three mdl-list" style="width: 90%; margin: auto;" id="displayPolls"></ul>
 	</div>
 
 	<div id="demo-toast-example" class="mdl-js-snackbar mdl-snackbar">
