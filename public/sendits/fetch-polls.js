@@ -41,7 +41,7 @@ function buildListItem(question, creation, docId, i) {
 	
 	let fancyDate = buildDate(creation);
 
-	return `<li class="mdl-list__item mdl-list__item--three-line"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-avatar" style="background:none;color:#757575;">poll</i><span><a href="/responses/?id=${docId}">${question}</a></span><span class="mdl-list__item-text-body">Created on ${fancyDate.calendarDay} at ${fancyDate.timeString}</span></span><span class="mdl-list__item-secondary-content"><a class="mdl-list__item-secondary-action" id="tt${i}"><i class="material-icons copyLinkButton" data-docId="${docId}">link</i></a><div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="tt${i}">Copy Share Link</div></span></li>`;
+	return `<li class="mdl-list__item mdl-list__item--three-line"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-avatar" style="background:none;color:#757575;">poll</i><span><a href="/responses/?id=${docId}">${question}</a></span><span class="mdl-list__item-text-body">Created on ${fancyDate.calendarDay} at ${fancyDate.timeString}</span></span><span class="mdl-list__item-secondary-content"><a class="mdl-list__item-secondary-action"><i class="material-icons copyLinkButton" data-docId="${docId}" id="tt${i}">link</i></a><div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="tt${i}">Copy Share Link</div></span></li>`;
 }
 
 function init() {
