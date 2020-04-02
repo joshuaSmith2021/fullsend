@@ -41,7 +41,7 @@ function buildListItem(question, creation, docId, i) {
 	
 	let fancyDate = buildDate(creation);
 
-	return `<li class="mdl-list__item mdl-list__item--three-line"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-avatar" style="background:none;color:#757575;">poll</i><span><a href="/responses/?id=${docId}">Ask me something!</a></span><span class="mdl-list__item-text-body">Created on ${fancyDate.calendarDay} at ${fancyDate.timeString}</span></span><span class="mdl-list__item-secondary-content"><a class="mdl-list__item-secondary-action" id="tt${i}"><i class="material-icons copyLinkButton" data-docId="${docId}">link</i></a><div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="tt${i}">Copy Share Link</div></span></li>`;
+	return `<li class="mdl-list__item mdl-list__item--three-line"><span class="mdl-list__item-primary-content"><i class="material-icons mdl-list__item-avatar" style="background:none;color:#757575;">poll</i><span><a href="/responses/?id=${docId}">${question}</a></span><span class="mdl-list__item-text-body">Created on ${fancyDate.calendarDay} at ${fancyDate.timeString}</span></span><span class="mdl-list__item-secondary-content"><a class="mdl-list__item-secondary-action" id="tt${i}"><i class="material-icons copyLinkButton" data-docId="${docId}">link</i></a><div class="mdl-tooltip mdl-tooltip--large" data-mdl-for="tt${i}">Copy Share Link</div></span></li>`;
 }
 
 function init() {
@@ -50,6 +50,13 @@ function init() {
 	const user = firebase.auth().currentUser;
 	const uid  = user.uid;
 	const firestore = firebase.firestore();
+
+	// Clear cache to get most up-to-date data
+	//firestore.clearPersistence().then(() => {
+	//	console.log('Successfully cleared firestore cache');
+	//}).catch(err => {
+	//	console.log('Unable to clear firestore cache');
+	//});
 
 	firestore.collection('users').doc(uid).get().then(doc => {
 		console.log('User doc received');
@@ -93,7 +100,7 @@ function init() {
 					console.log(userPolls);
 					for (let j = 0; j < userPolls.length; j++) {
 						let currentPoll = userPolls.sort(function(a, b) {
-							return a.timestamp.seconds > b.timestamp.seconds;
+							return a.timestamp.seconds < b.timestamp.seconds;
 						})[j];
 
 						let d = new Date(0);
