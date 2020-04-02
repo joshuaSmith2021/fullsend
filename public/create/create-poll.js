@@ -10,12 +10,15 @@ document.querySelector('#createTrigger').addEventListener('click', function() {
 
 	let questionInput = document.querySelector('#questionInput');
 	let questionText  = questionInput.value;
+	
+	let usernameInput = document.querySelector('#usernameInput');
+	let usernameText  = usernameInput.value;
 
 	let documentName = uuidv4();
 
 	firestore.collection('sendits').doc(documentName).set({
 		created : new Date(),
-		creator : '',
+		creator : usernameText,
 		question: questionText 
 	}).then(() => {
 		console.log('Sendit created successfully!');
