@@ -54,6 +54,9 @@ function init() {
 			let d = new Date(0);
 			d.setUTCSeconds(current.sent.seconds);
 			responseList.innerHTML += buildResponse(resText, d);
+
+			document.querySelector('#main').hidden = false;
+			document.querySelector('#loadingScreen').hidden = true;
 		}
 	}).catch(err => {
 		console.error(err);
